@@ -13,4 +13,8 @@ Project结构
   style.js              // 默认样式
 ```
 
-1. 使用styled-components 库
+1. 使用styled-components库
+2. 初始项目搭建
+    - 路由配置和应用部分
+    - 公共组件的开发
+    - redux的store的创建和引入
