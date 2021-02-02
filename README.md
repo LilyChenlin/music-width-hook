@@ -12,3 +12,5 @@ Project结构
   serviceWorker.js      // PWA 离线应用配置
   style.js              // 默认样式
 ```
+
+1. 使用styled-components 库
