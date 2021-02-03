@@ -18,8 +18,8 @@ function Home (props) {
             </Top>
             <Tab>
                 <NavLink to="/recommend" activeClassName="selected"><TabItem><span>推荐</span></TabItem></NavLink>
-                <NavLink to="/rank" activeClassName="selected"><TabItem><span>排行榜</span></TabItem></NavLink>
                 <NavLink to="/singer" activeClassName="selected"><TabItem><span>歌手</span></TabItem></NavLink>
+                <NavLink to="/rank" activeClassName="selected"><TabItem><span>排行榜</span></TabItem></NavLink>
             </Tab>
             {/* 使用renderRoutes渲染处于第二层的功能组件 */}
             { renderRoutes (route.routes) }

@@ -19,6 +19,7 @@ const noWrap = () => {
     `
 }
 
+
 export default {
     'theme-color': '#d44439',
     'theme-color-shadow': 'rgba (212, 68, 57, .5)',
