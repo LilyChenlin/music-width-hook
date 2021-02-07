@@ -5,7 +5,8 @@ import {Content} from './style';
 import Scroll from '../../baseUI/scroll';
 import {connect} from 'react-redux';
 import * as actionTypes from './store/actionCreator';
-
+import { forceCheck } from 'react-lazyload';
+import Loading from '../../baseUI/loading/index';
 function Recommend(props) {
     const {
         bannerList,
@@ -20,8 +21,14 @@ function Recommend(props) {
 
     // }
     useEffect(() => {
-        getBannerDataDispatch();
-        getRecommendListDataDispatch();
+
+        // 如果页面有数据，则不发送请求
+        if (!bannerList.size) {
+            getBannerDataDispatch();
+        }
+        if (!recommendList.size) {
+            getRecommendListDataDispatch();
+        }
     }, [])
 
     const bannerListJS = bannerList ? bannerList.toJS() : [];
@@ -43,12 +50,13 @@ function Recommend(props) {
     // })
     return(
         <Content>
-            <Scroll className="list">
+            <Scroll className="list" onScroll={forceCheck}>
                 <div>
                     <Slider bannerList={bannerListJS}></Slider>
                     <RecommendList recommendList={recommendListJS}></RecommendList>
                 </div>
             </Scroll>
+            { enterLoading ? <Loading></Loading> : null }
         </Content>
 
     )
@@ -57,7 +65,8 @@ function Recommend(props) {
 // 映射Redux全局的state到组件到props上
 const mapStateToProps = (state) => ({
     bannerList: state.getIn(['recommend', 'bannerList']),
-    recommendList: state.getIn(['recommend', 'recommendList'])
+    recommendList: state.getIn(['recommend', 'recommendList']),
+    enterLoading: state.getIn(['recommend', 'enterLoading'])
 })
 
 // 映射 dispatch 到 props 上
@@ -71,4 +80,5 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
+// cllTodo:理解React.memo
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Recommend))
