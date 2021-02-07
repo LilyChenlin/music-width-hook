@@ -2,6 +2,15 @@ Project结构
 ```
 ├─api                   // 网路请求代码、工具类函数和相关配置
 ├─application           // 项目核心功能
+| ├─Home                // 主页
+| ├─Recommend           // 推荐页
+| | ├─store
+| | | ├─actionCreator.js // 存放各种action的文件
+| | | ├─constants.js     // 常量集合，存放不同action的type值
+| | | ├─index.js         // 导出initialState和reducer函数
+| | | ├─reducer.js       // 存放 initialState 和 reducer 函数
+| ├─Rank                // 排行榜页
+| ├─Singer              // 歌手页
 ├─assets                // 字体配置及全局样式
 ├─baseUI                // 基础 UI 轮子
 ├─components            // 可复用的 UI 组件

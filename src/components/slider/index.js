@@ -34,7 +34,7 @@ function Slider({bannerList}) {
                             return(
                                 <SwiperSlide key={index}>
                                     <div className="slider-nav">
-                                        <img src={item.imgUrl} width="100%" height="100%" alt="推荐" />
+                                        <img src={item.imageUrl} width="100%" height="100%" alt="推荐" />
                                     </div>
                                 </SwiperSlide>
                             )
