@@ -10,7 +10,8 @@ import Loading from '../../baseUI/loading/index';
 function Recommend(props) {
     const {
         bannerList,
-        recommendList
+        recommendList,
+        enterLoading
     } = props;
 
     const {
