@@ -134,4 +134,4 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-export default React.memo(Singer);
+export default connect(mapStateToProps, maReact.memo(Singer());
