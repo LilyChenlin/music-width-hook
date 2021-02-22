@@ -6,13 +6,16 @@ import routes from './routes/index.js';
 import { HashRouter } from 'react-router-dom';
 import store from './store/index'
 import { Provider } from 'react-redux';
+import { Data } from './application/Singer/data'
 function App() {
   return (
     <Provider store={store}>
       <HashRouter>
         <GlobalStyle></GlobalStyle>
         <IconStyle></IconStyle>
-        { renderRoutes (routes) }
+        <Data>
+          { renderRoutes (routes) }
+        </Data>
       </HashRouter>
     </Provider>
 

@@ -1,4 +1,4 @@
-import { CHANGE_ENTER_LOADING } from "../../Recommend/store/constants"
+
 
 export const CHANGE_SINGER_LIST = 'singers/CHANGE_SINGER_LIST';
 export const CHANGE_PAGE_COUNT = 'singers/PAGE_COUNT';
