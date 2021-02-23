@@ -1,12 +1,19 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import {CSSTransition} from 'react-transition-group';
 import Header from './../../baseUI/header/index';
 import Scroll from '../../baseUI/scroll/index';
 import {Container, TopDesc, Menu, SongList, SongItem} from './style';
-import { getName, getCount } from './../../api/util';
-
+import { getName, getCount, isEmptyObject } from './../../api/util';
+import { connect } from "react-redux";
 import style from "../../assets/global-style";
+import { getAlbumList, changeEnterLoading} from './store/actionCreator';
+import Loading from '../../baseUI/loading/index';
+
 function Album (props) {
+
+    const {currentAlbum: currentAlbumImmutable, enterLoading} = props;
+    const { getAlbumDataDispatch } = props;
+
     const [showStatus, setShowStatus] = useState(true);
     const [title, setTitle] = useState("歌单");
     const [isMarquee, setIsMarquee] = useState(false); // 是否跑马灯
@@ -16,6 +23,7 @@ function Album (props) {
         setShowStatus(false)
     }
     const HEADER_HEIGHT = 45;
+    const id = props.match.params.id;
 
     const handleScroll = (pos) => { 
         let minScrollY = -HEADER_HEIGHT;
@@ -35,87 +43,13 @@ function Album (props) {
             setIsMarquee(false);
         }
     }
-    const currentAlbum = {
-        creator: {
-            avatarUrl: "http://p1.music.126.net/O9zV6jeawR43pfiK2JaVSw==/109951164232128905.jpg",
-            nickname: "浪里推舟"
-        },
-        coverImgUrl: "http://p2.music.126.net/ecpXnH13-0QWpWQmqlR0gw==/109951164354856816.jpg",
-        subscribedCount: 2010711,
-        name: "听完就睡，耳机是天黑以后柔软的梦境",
-        tracks:[
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                    name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-            {
-                name: "我真的受伤了",
-                ar: [{name: "张学友"}, {name: "周华健"}],
-                al: {
-                name: "学友 热"
-                }
-            },
-        ]
-    }
+
+    useEffect(() => {
+        getAlbumDataDispatch(id);
+    }, [getAlbumDataDispatch, id])
+    
+    let currentAlbum = currentAlbumImmutable.toJS();
+
 
     return(
         <CSSTransition
@@ -128,7 +62,9 @@ function Album (props) {
         >
             <Container>
                 <Header title={'返回'} handleClick={handleBack} title={title} ref={headerEl} isMarquee={isMarquee}></Header>
-                <Scroll bounceTop={false} onScroll = {handleScroll}>
+                {
+                    !isEmptyObject(currentAlbum) ? (
+                    <Scroll bounceTop={false} onScroll = {handleScroll}>
                     <div>
                         <TopDesc background={currentAlbum.coverImgUrl}>
                         <div className="background">
@@ -201,9 +137,25 @@ function Album (props) {
                             </SongList>
                     </div>  
                 </Scroll>
+                ) : null
+            }
+            { enterLoading ? <Loading></Loading> : null}
             </Container>
         </CSSTransition>
     )
 }
 
-export default React.memo(Album)
+const mapStateToProps = (state) => ({
+    currentAlbum: state.getIn(['album', 'currentAlbum']),
+    loading: state.getIn(['album', 'loading'])
+})
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getAlbumDataDispatch(id) {
+            dispatch(changeEnterLoading(true));
+            dispatch(getAlbumList(id))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Album))

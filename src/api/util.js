@@ -1,3 +1,5 @@
+import { object } from "prop-types";
+
 export const getCount = (count) => {
     if (count < 0) return;
     if (count < 10000) {
@@ -27,3 +29,6 @@ export const getName = list => {
     })
     return str;
 }
+
+// 判断控对象
+export const isEmptyObject = obj => !obj || object.keys(obj).length === 0;
