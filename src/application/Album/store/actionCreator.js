@@ -12,7 +12,7 @@ export const changeEnterLoading = (data) => ({
     data
 })
 
-export const getAlbumList = (id) => {
+export const getAlbumList = (id) => {debugger
     return dispatch => {
         getAlbumDetailRequest(id).then(res => {
             let data = res.playlist;

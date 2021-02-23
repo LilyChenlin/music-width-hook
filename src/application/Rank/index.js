@@ -12,7 +12,6 @@ function Rank (props) {
     const {getRankListDataDispatch} = props;
 
     let rankList = list ? list.toJS() : [];
-    debugger
     // 传入空数组作为依赖项，仅在组件挂载执行，仅执行一次
     useEffect(() => {
         if (!rankList.size) {
@@ -24,14 +23,16 @@ function Rank (props) {
     // 分为官方版和全球版
     let officialList = rankList.slice(0, globalStartIndex);
     let globalList = rankList.slice(globalStartIndex);
-    const enterDetail = () => {}
+    const enterDetail = (item) => {
+        props.history.push (`/rank/${item.id}`)
+    }
     const renderRankList = (list, global) => {
         return (
             <List globalRank={global}>
                 {
                     list.map(item => {
                         return(
-                            <ListItem key={item.coverImgId} track={item.tracks} onClick={() => enterDetail (item.name)}>
+                            <ListItem key={item.coverImgId} track={item.tracks} onClick={() => enterDetail (item)}>
                                 <div className="img_wrapper">
                                     <img src={item.coverImgUrl} alt=""/>
                                     <div className="decorate"></div>

@@ -31,4 +31,4 @@ export const getName = list => {
 }
 
 // 判断控对象
-export const isEmptyObject = obj => !obj || object.keys(obj).length === 0;
+export const isEmptyObject = obj => !obj || Object.keys(obj).length === 0;

@@ -9,7 +9,7 @@ import style from "../../assets/global-style";
 import { getAlbumList, changeEnterLoading} from './store/actionCreator';
 import Loading from '../../baseUI/loading/index';
 
-function Album (props) {
+function Album (props) {console.log("111", props)
 
     const {currentAlbum: currentAlbumImmutable, enterLoading} = props;
     const { getAlbumDataDispatch } = props;
@@ -21,8 +21,9 @@ function Album (props) {
     const headerEl = useRef(); // 通过useRef创建一个ref
 
     const HEADER_HEIGHT = 45;
-    const id = props.match.params.id;
 
+
+    let currentAlbum = currentAlbumImmutable.toJS();
     // 由于handleBack函数和handleScroll函数在父组件每次执行时会生成不一样的handleBack和handleScroll
     // 造成memo会认为其结果不一样，所以会重新渲染。
     // 因此使用useCallBack，节约浏览器渲染性能
@@ -50,11 +51,14 @@ function Album (props) {
         }
     }, [currentAlbum])
 
+
+    const id = props.match.params.id;
+
     useEffect(() => {
         getAlbumDataDispatch(id);
     }, [getAlbumDataDispatch, id])
     
-    let currentAlbum = currentAlbumImmutable.toJS();
+    
 
 
     return(
@@ -153,12 +157,12 @@ function Album (props) {
 
 const mapStateToProps = (state) => ({
     currentAlbum: state.getIn(['album', 'currentAlbum']),
-    loading: state.getIn(['album', 'loading'])
+    enterLoading: state.getIn(['album', 'enterLoading'])
 })
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getAlbumDataDispatch(id) {
+        getAlbumDataDispatch(id) {debugger
             dispatch(changeEnterLoading(true));
             dispatch(getAlbumList(id))
         }
