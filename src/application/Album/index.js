@@ -19,13 +19,19 @@ function Album (props) {
     const [isMarquee, setIsMarquee] = useState(false); // 是否跑马灯
 
     const headerEl = useRef(); // 通过useRef创建一个ref
-    const handleBack = () => {
-        setShowStatus(false)
-    }
+
     const HEADER_HEIGHT = 45;
     const id = props.match.params.id;
 
-    const handleScroll = (pos) => { 
+    // 由于handleBack函数和handleScroll函数在父组件每次执行时会生成不一样的handleBack和handleScroll
+    // 造成memo会认为其结果不一样，所以会重新渲染。
+    // 因此使用useCallBack，节约浏览器渲染性能
+    const handleBack = useCallback(() => {
+        setShowStatus(false)
+    }, [])
+
+
+    const handleScroll = useCallback((pos) => { 
         let minScrollY = -HEADER_HEIGHT;
         let percent = Math.abs(pos.y / minScrollY);
         let headerDom = headerEl.current;
@@ -42,7 +48,7 @@ function Album (props) {
             setTitle("歌单");
             setIsMarquee(false);
         }
-    }
+    }, [currentAlbum])
 
     useEffect(() => {
         getAlbumDataDispatch(id);
