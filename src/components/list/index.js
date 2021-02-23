@@ -1,21 +1,24 @@
 import React from 'react';
 import Lazyload from 'react-lazyload';
-
+import { withRouter } from 'react-router-dom';
 import {
     ListWrapper,
     ListItem,
     List
 } from './style'
 import {getCount} from '../../api/util'
-const RecommendList = ({recommendList}) => {
+const RecommendList = (props) => {
+    const enterDetail = (id) => {debugger
+        props.history.push (`/recommend/${id}`)
+    }
     return(
         <ListWrapper>
             <h1 className="title">推荐歌单</h1>
             <List>
                 {
-                    recommendList.map((item, index) => {
+                    props.recommendList.map((item, index) => {
                         return (
-                            <ListItem key={index}>
+                            <ListItem key={index} onClick={() => enterDetail(item.id)}>
                                 <div className="img_wrapper">
                                     <div className="decorate"></div>
                                     {/* 在img外面加一层Lazyload图片懒加载 */}
@@ -39,4 +42,4 @@ const RecommendList = ({recommendList}) => {
     )
 }
 
-export default RecommendList;
+export default React.memo(withRouter(RecommendList));

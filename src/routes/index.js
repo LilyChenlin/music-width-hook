@@ -4,7 +4,7 @@ import Home from '../application/Home'; // 公共组件
 import Recommend from '../application/Recommend'; // 推荐组件
 import Singer from '../application/Singer';
 import Rank from '../application/Rank';
-
+import Album from '../application/Album';
 let routes = [
     {
         path: '/',
@@ -19,7 +19,13 @@ let routes = [
             },
             {
                 path: '/recommend',
-                component: Recommend
+                component: Recommend,
+                routes: [
+                    {
+                        path: '/recommend/:id',
+                        component: Album
+                    }
+                ]
             },
             {
                 path: '/singer',
