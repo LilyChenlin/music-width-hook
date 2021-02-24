@@ -5,7 +5,7 @@ import Recommend from '../application/Recommend'; // 推荐组件
 import Singer from '../application/Singer';
 import Rank from '../application/Rank';
 import Album from '../application/Album';
-import SingerDetial from '../application/SingerDetial'
+import SingerDetail from '../application/SingerDetail/index'
 let routes = [
     {
         path: '/',
@@ -35,7 +35,7 @@ let routes = [
                 routes: [
                     {
                         path: '/singer/:id',
-                        component: SingerDetial
+                        component: SingerDetail
                     }
                 ]
             },

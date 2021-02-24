@@ -180,3 +180,8 @@ export const alphaTypes = [{
 export {
     axiosInstance,
 }
+
+
+// 顶部高度
+
+export const HEADER_HEIGHT = 45;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { getName } from '../../api/util';
 import { SongList, SongItem } from './style';
-const SongsList = React.forwardRef((props, refs) => {
+const SongsList = React.forwardRef((props, refs) => {debugger
     const {showBackground, songs, collectCount, showCollect} = props;
-    const totalCount = songs.length;
+    const totalCount = songs && songs.length;
 
     const selectItem = (e, index) => {
 
@@ -46,7 +46,7 @@ const SongsList = React.forwardRef((props, refs) => {
                 { showCollect ? collect (collectCount) : null}
             </div>
             <SongItem>
-                { songList (songs) }
+                { songs && songList (songs) }
             </SongItem>
         </SongList>
     )

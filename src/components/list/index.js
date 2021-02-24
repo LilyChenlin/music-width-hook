@@ -8,7 +8,7 @@ import {
 } from './style'
 import {getCount} from '../../api/util'
 const RecommendList = (props) => {
-    const enterDetail = (id) => {debugger
+    const enterDetail = (id) => {
         props.history.push (`/recommend/${id}`)
     }
     return(
