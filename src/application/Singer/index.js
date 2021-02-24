@@ -4,6 +4,7 @@ import { categoryTypes, alphaTypes } from '../../api/config';
 import { NavContainer, ListContainer, List, ListItem } from './style';
 import Scroll from '../../baseUI/scroll/index';
 import {connect} from 'react-redux';
+import { renderRoutes } from 'react-router-config';
 // 懒加载图片
 import LazyLoad, {forceCheck} from 'react-lazyload';
 import {
@@ -40,14 +41,9 @@ function Singer(props) {
         updateDispatch(category, val)
     }
 
-
-    // const singerList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map(item => {
-    //     return {
-    //         picUrl: "https://p2.music.126.net/uTwOm8AEFFX_BYHvfvFcmQ==/109951164232057952.jpg",
-    //         name: '隔壁老樊',
-    //         accountId: 277313426,
-    //     }
-    // })
+    const enterDetail = (id) => {
+        props.history.push(`/singer/${id}`)
+    }
     useEffect(() => {
         if(!singerList.size) {
             getHotSingerDispatch();
@@ -61,7 +57,7 @@ function Singer(props) {
                 {
                     list.map((item, index) => {
                         return(
-                            <ListItem key={item.accountId + '' + index}>
+                            <ListItem key={item.accountId + '' + index} onClick={() => enterDetail(item.id)}>
                                 <div className="img_wrapper">
                                     {/* <LazyLoad
                                         placeholder={<img width="100%" height="100%" src={require ('./singer.png')} 
@@ -114,6 +110,7 @@ function Singer(props) {
                 </Scroll>
                 <Loading show={enterLoading}></Loading>
             </ListContainer>
+            { renderRoutes (props.route.routes) }
         </div>
 
     )
