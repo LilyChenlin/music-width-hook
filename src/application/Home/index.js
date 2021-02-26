@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderRoutes } from "react-router-config";
 import { NavLink } from 'react-router-dom';// 利用 NavLink 组件进行路由跳转
+import Player from '../Player';
 import { 
     Top,
     Tab,
@@ -23,6 +24,7 @@ function Home (props) {
             </Tab>
             {/* 使用renderRoutes渲染处于第二层的功能组件 */}
             { renderRoutes (route.routes) }
+            <Player></Player>
         </div>
 
     )

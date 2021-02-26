@@ -5,7 +5,7 @@ import { getSingerInfoRequest } from '../../../api/request';
 const changeArtist = (data) => ({
     type: CHANGE_ARTIST,
     data: fromJS(data)
-}) 
+})
 
 const changeSongsOfArtist = (data) => ({
     type: CHANGE_SONGS_OF_ARTIST,
