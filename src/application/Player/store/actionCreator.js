@@ -5,7 +5,7 @@ import {
     SET_SEQUENCE_PLAYLIST,
     SET_PLAYLIST,
     SET_PLAY_MODE,
-    SET_CURRENT_INDEX,
+    SET_CURRENT_SONG,
     SET_SHOW_PLAYLIST
 } from './constants'
 
