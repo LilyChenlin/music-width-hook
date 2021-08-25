@@ -6,11 +6,12 @@ import Singer from '../application/Singer';
 import Rank from '../application/Rank';
 import Album from '../application/Album';
 import SingerDetail from '../application/SingerDetail/index';
-import ResizeDiv from '../application/ResizeDiv/hansonTable';
+// import ResizeDiv from '../application/ResizeDiv/hansonTable';
+import forMikCom from '../application/FormikCom/basic';
 let routes = [
     {
         path: '/',
-        component: ResizeDiv,
+        component: forMikCom,
         // routes: [
         //     {
         //         path: '/',
