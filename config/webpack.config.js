@@ -1,7 +1,7 @@
 /**
  * Base
  */
-const path = require('path');
+const {resolve} = require('path');
 // 引入该Plugin  动态在html文件中引入js/css文件
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -10,15 +10,19 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 // 将css样式从js文件中提取到单独的css文件中，通过外链的形式引入
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const {PROJECT_PATH} = require('../constants.js')
+
+const path = resolve(PROJECT_PATH, './dist');
 module.exports = {
     // mode: 'development', // 开发模式
     entry: {// 入口文件
-        main: path.resolve(__dirname, '../src/main.js'),
-        header: path.resolve(__dirname, '../src/header.js')
+        main: resolve(PROJECT_PATH, './src/main.js'),
+        header: resolve(PROJECT_PATH, './src/header.js')
     }, 
     output: {
         filename: '[name].[hash:8].js', // 打包后的文件名称
-        path: path.resolve(__dirname, '../dist') // 打包后的目录
+        path: resolve(PROJECT_PATH, './dist') // 打包后的目录
     },
     module: {
         rules: [
@@ -46,12 +50,12 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname,'../public/index.html'),
+            template: resolve(PROJECT_PATH,'./public/index.html'),
             filename: 'index.html',
             chunks: ['main'], // 为不同页面注入不同的chunk （chunk是打包生成的js文件）
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../public/header.html'),
+            template: resolve(PROJECT_PATH, './public/header.html'),
             filename: 'header.html',
             chunks: ['header']
         }),
