@@ -1,3 +1,6 @@
+/**
+ * Base
+ */
 const path = require('path');
 // 引入该Plugin  动态在html文件中引入js/css文件
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,7 +11,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // 将css样式从js文件中提取到单独的css文件中，通过外链的形式引入
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
-    mode: 'development', // 开发模式
+    // mode: 'development', // 开发模式
     entry: {// 入口文件
         main: path.resolve(__dirname, '../src/main.js'),
         header: path.resolve(__dirname, '../src/header.js')
