@@ -17,7 +17,31 @@ module.exports = {
         filename: '[name].[hash:8].js', // 打包后的文件名称
         path: path.resolve(__dirname, '../dist') // 打包后的目录
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    // 'style-loader', // 这个是把样式通过<style></style>标签把样式插入进去 如果使用MiniCss通过外链引入的话，就注释掉不使用
+                    'css-loader',
+                    'postcss-loader'
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    // 'style-loader', 
+                    'css-loader', 
+                    'less-loader',
+                    'postcss-loader'
+                ]
+            }
+        ]
+    },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname,'../public/index.html'),
             filename: 'index.html',
@@ -28,34 +52,9 @@ module.exports = {
             filename: 'header.html',
             chunks: ['header']
         }),
-        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].[hash].css',
             chunkFilename: '[id].css'
         })
     ],
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'style-loader', 
-                    'css-loader'
-                ]
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'style-loader', 
-                    'css-loader', 
-                    {
-                        loader: 'postcss-loader',
-                    }, 
-                    'less-loader'
-                ]
-            }
-        ]
-    }
 }
