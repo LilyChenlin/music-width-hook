@@ -17,12 +17,15 @@ const {PROJECT_PATH, isDev} = require('../constants.js')
 module.exports = {
     // mode: 'development', // 开发模式
     entry: {// 入口文件
-        index: resolve(PROJECT_PATH, './src/index.js'),
+        index: resolve(PROJECT_PATH, './src/index.tsx'),
         // header: resolve(PROJECT_PATH, './src/header.js')
     }, 
     output: {
         filename: `[name]${isDev ? '' : '.[hash:8]'}.js`, // 打包后的文件名称
         path: resolve(PROJECT_PATH, './dist') // 打包后的目录
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.json'],
     },
     module: {
         rules: [
