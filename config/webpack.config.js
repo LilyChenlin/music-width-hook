@@ -17,8 +17,8 @@ const {PROJECT_PATH, isDev} = require('../constants.js')
 module.exports = {
     // mode: 'development', // 开发模式
     entry: {// 入口文件
-        main: resolve(PROJECT_PATH, './src/main.js'),
-        header: resolve(PROJECT_PATH, './src/header.js')
+        index: resolve(PROJECT_PATH, './src/index.js'),
+        // header: resolve(PROJECT_PATH, './src/header.js')
     }, 
     output: {
         filename: `[name]${isDev ? '' : '.[hash:8]'}.js`, // 打包后的文件名称
@@ -44,6 +44,13 @@ module.exports = {
                     'less-loader',
                     'postcss-loader'
                 ]
+            },
+            {
+                // 增加该配置识别jsx语法
+                test: /\.(tsx?|js)$/,
+                loader: 'babel-loader',
+                options: {cacheDirectory: true},
+                exclude: /node_modules/,
             }
         ]
     },
@@ -52,7 +59,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: resolve(PROJECT_PATH,'./public/index.html'),
             filename: 'index.html',
-            chunks: ['main'], // 为不同页面注入不同的chunk （chunk是打包生成的js文件）
+            chunks: ['index'], // 为不同页面注入不同的chunk （chunk是打包生成的js文件）
             cache: false, // 特别重要：防止之后使用v6版本 copy-webpack-plugin 时代码修改一刷新页面为空问题。
             minify: isDev ? false : {
                 removeAttributeQuotes: true,
@@ -69,11 +76,11 @@ module.exports = {
                 useShortDoctype: true,
             }
         }),
-        new HtmlWebpackPlugin({
-            template: resolve(PROJECT_PATH, './public/header.html'),
-            filename: 'header.html',
-            chunks: ['header']
-        }),
+        // new HtmlWebpackPlugin({
+        //     template: resolve(PROJECT_PATH, './public/header.html'),
+        //     filename: 'header.html',
+        //     chunks: ['header']
+        // }),
         new MiniCssExtractPlugin({
             filename: '[name].[hash].css',
             chunkFilename: '[id].css'
