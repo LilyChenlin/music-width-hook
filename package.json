@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config config/webpack.config.js",
+    "start": "cross-env NODE_ENV=development webpack-dev-server  --config config/webpack.dev.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.config.js",
     "debug": "node --inspect=5858 config/webpack.config.js"
   },
   "repository": {
@@ -21,6 +22,7 @@
   "devDependencies": {
     "autoprefixer": "^10.3.3",
     "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
     "less": "^4.1.1",
