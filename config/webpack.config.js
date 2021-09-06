@@ -14,7 +14,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require('copy-webpack-plugin');
 
 const {PROJECT_PATH, isDev} = require('../constants.js');
-const { ProvidePlugin } = require('webpack');
+
+const WebpackBar = require('webpackbar')
 
 // const path = resolve(PROJECT_PATH, './dist');
 module.exports = {
@@ -99,6 +100,10 @@ module.exports = {
                 to: resolve(PROJECT_PATH, './dist'),
                 toType: 'dir',
             }]
+        }),
+        new WebpackBar({
+            name: isDev ? '正在启动...' : '正在打包',
+            color: '#fa8c16'
         })
     ],
 }
