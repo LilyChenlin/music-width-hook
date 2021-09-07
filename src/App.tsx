@@ -5,7 +5,7 @@ interface IProps {
     age: number
 }
 function App(props: IProps) {
-    const {name, age} = props;
+    const {name, age, wrong} = props;
     return <div className="app">
         <span>{`Hello, I am ${name}, ${age} years old.`}</span>
     </div>

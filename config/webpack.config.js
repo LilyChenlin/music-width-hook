@@ -17,6 +17,9 @@ const {PROJECT_PATH, isDev} = require('../constants.js');
 
 const WebpackBar = require('webpackbar')
 
+// 提高编译速度，第一次编译时做一个缓存
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+
 // const path = resolve(PROJECT_PATH, './dist');
 module.exports = {
     // mode: 'development', // 开发模式
@@ -83,11 +86,6 @@ module.exports = {
                 useShortDoctype: true,
             }
         }),
-        // new HtmlWebpackPlugin({
-        //     template: resolve(PROJECT_PATH, './public/header.html'),
-        //     filename: 'header.html',
-        //     chunks: ['header']
-        // }),
         new MiniCssExtractPlugin({
             filename: '[name].[hash].css',
             chunkFilename: '[id].css'
@@ -104,6 +102,39 @@ module.exports = {
         new WebpackBar({
             name: isDev ? '正在启动...' : '正在打包',
             color: '#fa8c16'
-        })
+        }),
+        // 缓存到node_modules/.cache/hard-source  提高二次编译速度
+
+        // 该plugin在webpack5中被实现了。
+        // new HardSourceWebpackPlugin({
+        //     // Either an absolute path or relative to webpack's options.context.
+        //     cacheDirectory: 'node_modules/.cache/hard-source/[confighash]',
+        //     // Either an absolute path or relative to webpack's options.context.
+        //     // Sets webpack's recordsPath if not already set.
+        //     recordsPath: 'node_modules/.cache/hard-source/[confighash]/records.json',
+        //     // Either a string of object hash function given a webpack config.
+        //     configHash: function(webpackConfig) {
+        //         // node-object-hash on npm can be used to build this.
+        //         return require('node-object-hash')({sort: false}).hash(webpackConfig);
+        //     },
+        //     // Either false, a string, an object, or a project hashing function.
+        //     environmentHash: {
+        //         root: process.cwd(),
+        //         directories: [],
+        //         files: ['package-lock.json', 'yarn.lock'],
+        //     },
+        // }),
     ],
+    // 第一次打包 6.13s 
+    // 第二次打包 1.13s
+    cache: {
+        type: 'filesystem',
+        cacheDirectory: resolve(PROJECT_PATH, '.temp_cache')
+        // buildDependencies: {
+        //     // 2. 将你的 config 添加为 buildDependency，以便在改变 config 时获得缓存无效
+        //     config: [__filename],
+        //     // 3. 如果你有其他的东西被构建依赖，你可以在这里添加它们
+        //     // 注意，webpack、加载器和所有从你的配置中引用的模块都会被自动添加
+        // },
+    }
 }

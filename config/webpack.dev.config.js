@@ -1,7 +1,6 @@
 /**
  * 开发环境
  */
-const {resolve} = require('path');
 const {merge} = require('webpack-merge');
 const base = require('./webpack.config.js');
 const {SERVER_HOST, SERVER_PORT, PROJECT_PATH} = require('../constants.js')
