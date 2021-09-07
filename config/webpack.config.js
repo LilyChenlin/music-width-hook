@@ -104,7 +104,6 @@ module.exports = {
             color: '#fa8c16'
         }),
         // 缓存到node_modules/.cache/hard-source  提高二次编译速度
-
         // 该plugin在webpack5中被实现了。
         // new HardSourceWebpackPlugin({
         //     // Either an absolute path or relative to webpack's options.context.
@@ -136,5 +135,11 @@ module.exports = {
         //     // 3. 如果你有其他的东西被构建依赖，你可以在这里添加它们
         //     // 注意，webpack、加载器和所有从你的配置中引用的模块都会被自动添加
         // },
+    },
+
+    // 通过externals减少打包体积
+    externals: {
+        react: 'react',
+        'react-dom': 'ReactDOM',
     }
 }
