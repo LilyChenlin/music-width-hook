@@ -23,16 +23,25 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 // const path = resolve(PROJECT_PATH, './dist');
 module.exports = {
     // mode: 'development', // 开发模式
-    entry: {// 入口文件
-        index: resolve(PROJECT_PATH, './src/index.tsx'),
-        // header: resolve(PROJECT_PATH, './src/header.js')
-    }, 
+
+    // 单入口
+    entry: resolve(PROJECT_PATH, './src/index.tsx'),
+    // 多入口
+    // entry: {// 入口文件
+    //     index: resolve(PROJECT_PATH, './src/index.tsx'),
+    //     header: resolve(PROJECT_PATH, './src/header.js')
+    // }, 
     output: {
         filename: `[name]${isDev ? '' : '.[hash:8]'}.js`, // 打包后的文件名称
         path: resolve(PROJECT_PATH, './dist') // 打包后的目录
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
+        alias: {
+            '@Src': resolve(PROJECT_PATH, './src'),
+            '@Utils': resolve(PROJECT_PATH, './src/utils'),
+            '@Components': resolve(PROJECT_PATH, './src/Components'),
+        }
     },
     module: {
         rules: [
@@ -66,26 +75,32 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+
         new HtmlWebpackPlugin({
             template: resolve(PROJECT_PATH,'./public/index.html'),
-            filename: 'index_dist.html',
-            chunks: ['index'], // 为不同页面注入不同的chunk （chunk是打包生成的js文件）
-            cache: false, // 特别重要：防止之后使用v6版本 copy-webpack-plugin 时代码修改一刷新页面为空问题。
-            minify: isDev ? false : {
-                removeAttributeQuotes: true,
-                collapseWhitespace: true,
-                removeComments: true,
-                collapseBooleanAttributes: true,
-                collapseInlineTagWhitespace: true,
-                removeRedundantAttributes: true,
-                removeScriptTypeAttributes: true,
-                removeStyleLinkTypeAttributes: true,
-                minifyCSS: true,
-                minifyJS: true,
-                minifyURLs: true,
-                useShortDoctype: true,
-            }
         }),
+        // 多入口打包
+        // new HtmlWebpackPlugin({
+        //     template: resolve(PROJECT_PATH,'./public/index.html'),
+        //     filename: 'index.html',
+        //     title: 'index_dist_file',
+        //     chunks: ['index'], // 为不同页面注入不同的chunk （chunk是打包生成的js文件）
+        //     cache: false, // 特别重要：防止之后使用v6版本 copy-webpack-plugin 时代码修改一刷新页面为空问题。
+        //     // minify: isDev ? false : {
+        //     //     removeAttributeQuotes: true,
+        //     //     collapseWhitespace: true,
+        //     //     removeComments: true,
+        //     //     collapseBooleanAttributes: true,
+        //     //     collapseInlineTagWhitespace: true,
+        //     //     removeRedundantAttributes: true,
+        //     //     removeScriptTypeAttributes: true,
+        //     //     removeStyleLinkTypeAttributes: true,
+        //     //     minifyCSS: true,
+        //     //     minifyJS: true,
+        //     //     minifyURLs: true,
+        //     //     useShortDoctype: true,
+        //     // }
+        // }),
         new MiniCssExtractPlugin({
             filename: '[name].[hash].css',
             chunkFilename: '[id].css'
@@ -136,10 +151,4 @@ module.exports = {
         //     // 注意，webpack、加载器和所有从你的配置中引用的模块都会被自动添加
         // },
     },
-
-    // 通过externals减少打包体积
-    externals: {
-        react: 'react',
-        'react-dom': 'ReactDOM',
-    }
 }
