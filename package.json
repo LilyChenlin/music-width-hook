@@ -1,56 +1,28 @@
 {
   "name": "music-with-hooks",
   "version": "1.0.0",
-  "description": "Hooks实现音乐播放器",
-  "main": "main.js",
+  "description": "",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=development webpack-dev-server  --config config/webpack.dev.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.config.js",
-    "debug": "node --inspect=5858 config/webpack.config.js"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LilyChenlin/music-width-hook.git"
   },
-  "author": "LilyChenlin",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/LilyChenlin/music-width-hook/issues"
   },
   "homepage": "https://github.com/LilyChenlin/music-width-hook#readme",
   "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/preset-react": "^7.14.5",
-    "@babel/preset-typescript": "^7.15.0",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
-    "@types/webpack-env": "^1.16.2",
-    "autoprefixer": "^10.3.3",
-    "babel-loader": "^8.2.2",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^9.0.1",
-    "cross-env": "^7.0.3",
-    "css-loader": "^6.2.0",
-    "eslint-import-resolver-typescript": "^2.4.0",
-    "fork-ts-checker-webpack-plugin": "^6.3.3",
-    "glob": "^7.1.7",
-    "hard-source-webpack-plugin": "^0.13.1",
-    "html-webpack-plugin": "^5.3.2",
-    "less": "^4.1.1",
-    "less-loader": "^10.0.1",
-    "mini-css-extract-plugin": "^2.2.2",
-    "postcss-loader": "^6.1.1",
-    "purgecss-webpack-plugin": "^4.0.3",
-    "style-loader": "^3.2.1",
-    "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.1.0",
-    "webpack-merge": "^5.8.0",
-    "webpackbar": "^5.0.0-3"
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0"
   },
   "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "lodash": "^4.17.21"
   }
 }
