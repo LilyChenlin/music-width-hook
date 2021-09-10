@@ -4,7 +4,7 @@
 const {resolve} = require('path');
 // 引入该Plugin  动态在html文件中引入js/css文件
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const glob = require('glob');
 // 在每次重新打包的时候，清除原始打包的文件
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
@@ -15,7 +15,9 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const {PROJECT_PATH, isDev} = require('../constants.js');
 
-const WebpackBar = require('webpackbar')
+const WebpackBar = require('webpackbar');
+
+const PurgeCSSPlugin = require('purgecss-webpack-plugin');
 
 // 提高编译速度，第一次编译时做一个缓存
 // const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
@@ -79,7 +81,7 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        // new HtmlWebpackPlugin(),
+
         // // 多入口打包
         new HtmlWebpackPlugin({
             template: resolve(PROJECT_PATH,'./public/index.html'),
@@ -119,8 +121,8 @@ module.exports = {
             name: isDev ? '正在启动...' : '正在打包',
             color: '#fa8c16'
         }),
-        // 缓存到node_modules/.cache/hard-source  提高二次编译速度
-        // 该plugin在webpack5中被实现了。
+
+        // 缓存到node_modules/.cache/hard-source  提高二次编译速度 该plugin在webpack5中被实现了。
         // new HardSourceWebpackPlugin({
         //     // Either an absolute path or relative to webpack's options.context.
         //     cacheDirectory: 'node_modules/.cache/hard-source/[confighash]',
@@ -139,6 +141,12 @@ module.exports = {
         //         files: ['package-lock.json', 'yarn.lock'],
         //     },
         // }),
+
+        // 去除没有用到的css文件
+        new PurgeCSSPlugin({
+            paths: glob.sync(`${resolve(PROJECT_PATH, './src')}/**/*.{tsx,scss,less,css}`, {nodir: true}),
+            whitelist: ['html', 'body']
+        })
     ],
     // 第一次打包 6.13s 
     // 第二次打包 1.13s
