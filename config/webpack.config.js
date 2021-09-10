@@ -33,6 +33,12 @@ module.exports = {
         filename: `[name]${isDev ? '' : '.[hash:8]'}.js`, // 打包后的文件名称
         path: resolve(PROJECT_PATH, './dist') // 打包后的目录
     },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            name: 'app',
+        }
+    },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
         alias: {

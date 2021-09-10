@@ -9,7 +9,7 @@ interface Iprops {
 function ComputedOne(props: Iprops) {
     const {a, b} = props;
     const sum = add(a,b);
-    return <p className='computed-one'>{`Hi, I'm computed one, my sum is ${sum}.`}</p>
+    return <p className='computed-one'>{`Hi, I'm computed onedfdf, my sum is ${sum}.`}</p>
 }
 
 export default ComputedOne;

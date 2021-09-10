@@ -4,6 +4,7 @@
 const {merge} = require('webpack-merge');
 const base = require('./webpack.config.js');
 const {SERVER_HOST, SERVER_PORT} = require('../constants.js')
+const webpack = require('webpack');
 
 module.exports =  merge(base, {
     mode: 'development',
