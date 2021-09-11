@@ -14,7 +14,7 @@ module.exports = {
         //     dependOn: 'shared'
         // } 
         index: './src/index.js',
-        another: './src/another-module.js'
+        // another: './src/another-module.js'
         // print: './src/print.js'
         // hot: 'webpack/hot/dev-server.js',
         // client: 'webpack-dev-server/client/index.js?hot=true&live-reload=true',
@@ -31,11 +31,11 @@ module.exports = {
         // cllTodo: output中开启clean:true 功能等价于clean-webpack-plugin? 是webpack5的特性吗
         clean: true, // 功能等价于clean-webpack-plugin? 是webpack5的特性吗
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        }
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: 'all'
+    //     }
+    // },
     module: {
         rules: [
         ]

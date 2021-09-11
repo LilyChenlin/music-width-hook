@@ -1,28 +1,28 @@
-import _ from 'lodash';
-import print from './print.js';
+// import _ from 'lodash';
 
 
-function component() {
+// function getComponent() {
+//     const element = document.createElement('div');
+//     return import('lodash')
+//     .then(({default: _}) => {
+//         const element = document.createElement('div');
+//         element.innerHTML = _.join(['Hello', 'Webpack']);
+//         return element;
+//     })
+// }
+
+// 通过async/await 简化代码
+async function getComponent() {
     const element = document.createElement('div');
-    const btn = document.createElement('button');
 
-    element.innerHTML = _.join(['Hello', 'webpack'], '');
-    btn.innerHTML = 'Please click me';
-    btn.onclick = print;
+    const {default: _} = await import('lodash');
 
-    element.appendChild(btn);
+    element.innerHTML = _.join(['Hello', 'Webpack'], ' ');
+
     return element;
-}
-// document.body.appendChild(component())
-let element = component();
-document.body.appendChild(element);
 
-if (module.hot) {
-    module.hot.accept('./print.js', function() {
-        console.log("Accepting the updated printMe module!");
-        document.body.removeChild(element);
-        element = component();
-        document.body.appendChild(element);
-        print();
-    })
+    
 }
+getComponent().then((component) => {
+    document.body.appendChild(component)
+})
