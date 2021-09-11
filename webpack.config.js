@@ -5,6 +5,7 @@ module.exports = {
     mode: 'development',
     entry: {
         index: './src/index.js',
+        another: './src/another-module.js'
         // print: './src/print.js'
         // hot: 'webpack/hot/dev-server.js',
         // client: 'webpack-dev-server/client/index.js?hot=true&live-reload=true',
