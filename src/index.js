@@ -1,28 +1,18 @@
-// import _ from 'lodash';
-
-
-// function getComponent() {
-//     const element = document.createElement('div');
-//     return import('lodash')
-//     .then(({default: _}) => {
-//         const element = document.createElement('div');
-//         element.innerHTML = _.join(['Hello', 'Webpack']);
-//         return element;
-//     })
-// }
-
-// 通过async/await 简化代码
-async function getComponent() {
+import _ from 'lodash';
+function component() {
     const element = document.createElement('div');
+    const button = document.createElement('button');
+    const br = document.createElement('br');
 
-    const {default: _} = await import('lodash');
+    button.innerHTML = 'Click me and look at the console';
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    element.appendChild(button);
+    element.appendChild(br);
 
-    element.innerHTML = _.join(['Hello', 'Webpack'], ' ');
-
+    button.onclick = e => import(/* webpackChunkName: "print" */ './print').then((module) => {
+        const print = module.default;
+        print();
+    })
     return element;
-
-    
 }
-getComponent().then((component) => {
-    document.body.appendChild(component)
-})
+document.body.appendChild(component());
