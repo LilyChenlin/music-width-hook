@@ -4,8 +4,15 @@ const webpack = require("webpack");
 module.exports = {
     mode: 'development',
     entry: {
-        index: './src/index.js',
-        another: './src/another-module.js'
+        shared: 'lodash',
+        index: {
+            import: './src/index.js',
+            dependOn: 'shared',
+        },
+        another: {
+            import: './src/another-module.js',
+            dependOn: 'shared'
+        } 
         // print: './src/print.js'
         // hot: 'webpack/hot/dev-server.js',
         // client: 'webpack-dev-server/client/index.js?hot=true&live-reload=true',
@@ -21,6 +28,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         // cllTodo: output中开启clean:true 功能等价于clean-webpack-plugin? 是webpack5的特性吗
         clean: true, // 功能等价于clean-webpack-plugin? 是webpack5的特性吗
+    },
+    optimization: {
+        runtimeChunk: 'single'
     },
     module: {
         rules: [
