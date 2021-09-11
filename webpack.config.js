@@ -4,15 +4,17 @@ const webpack = require("webpack");
 module.exports = {
     mode: 'development',
     entry: {
-        shared: 'lodash',
-        index: {
-            import: './src/index.js',
-            dependOn: 'shared',
-        },
-        another: {
-            import: './src/another-module.js',
-            dependOn: 'shared'
-        } 
+        // shared: 'lodash',
+        // index: {
+        //     import: './src/index.js',
+        //     dependOn: 'shared',
+        // },
+        // another: {
+        //     import: './src/another-module.js',
+        //     dependOn: 'shared'
+        // } 
+        index: './src/index.js',
+        another: './src/another-module.js'
         // print: './src/print.js'
         // hot: 'webpack/hot/dev-server.js',
         // client: 'webpack-dev-server/client/index.js?hot=true&live-reload=true',
@@ -30,7 +32,9 @@ module.exports = {
         clean: true, // 功能等价于clean-webpack-plugin? 是webpack5的特性吗
     },
     optimization: {
-        runtimeChunk: 'single'
+        splitChunks: {
+            chunks: 'all'
+        }
     },
     module: {
         rules: [
