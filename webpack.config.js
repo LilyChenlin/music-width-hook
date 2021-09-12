@@ -47,6 +47,11 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                include: path.resolve(__dirname, 'src'),// 使用include字段，将loader应用在实际需要将其转换的模块 
+                loader: 'babel-loader',
+            }
         ]
     },
     plugins: [
