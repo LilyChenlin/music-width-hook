@@ -7,54 +7,54 @@ import Rank from '../application/Rank';
 import Album from '../application/Album';
 import SingerDetail from '../application/SingerDetail/index';
 // import ResizeDiv from '../application/ResizeDiv/hansonTable';
-import forMikCom from '../application/FormikCom/basic';
+// import forMikCom from '../application/FormikCom/basic';
 import VirtualList from '../application/VirtualList'
 let routes = [
     {
         path: '/',
-        component: VirtualList,
-        // routes: [
-        //     {
-        //         path: '/',
-        //         exact: true,
-        //         render: () => {
-        //             <Redirect to={'/recommend'}/>
-        //         }
-        //     },
-        //     {
-        //         path: '/recommend',
-        //         component: Recommend,
-        //         routes: [
-        //             {
-        //                 path: '/recommend/:id',
-        //                 component: Album
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         path: '/singer',
-        //         component: Singer,
-        //         key: "singer",
-        //         routes: [
-        //             {
-        //                 path: '/singer/:id',
-        //                 component: SingerDetail
-        //             }
-        //         ]
-        //     },
-        //     {
-        //         path: '/Rank',
-        //         component: Rank,
-        //         key: "rank",
-        //         routes: [
-        //             {
-        //                 path: "/rank/:id",
-        //                 component: Album
-        //             }
-        //         ]
-        //     },
+        component: Home,
+        routes: [
+            {
+                path: '/',
+                exact: true,
+                render: () => {
+                    <Redirect to={'/recommend'}/>
+                }
+            },
+            {
+                path: '/recommend',
+                component: Recommend,
+                routes: [
+                    {
+                        path: '/recommend/:id',
+                        component: Album
+                    }
+                ]
+            },
+            {
+                path: '/singer',
+                component: Singer,
+                key: "singer",
+                routes: [
+                    {
+                        path: '/singer/:id',
+                        component: SingerDetail
+                    }
+                ]
+            },
+            {
+                path: '/Rank',
+                component: Rank,
+                key: "rank",
+                routes: [
+                    {
+                        path: "/rank/:id",
+                        component: Album
+                    }
+                ]
+            },
 
-        // ]
+        ]
     },
     // {
     //     path: '/ResizeDiv',
