@@ -4,32 +4,50 @@ import BScroll from 'better-scroll';
 import styled from 'styled-components';
 import Loading from '../loading/index';
 import LoadingV2 from '../loading-v2/index';
+import {noop } from 'lodash';
 const ScrollContainer = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
 `
 
-// 函数组件不能直接被上层组件调用ref, 需要通过forwardRef包裹
-const Scroll = forwardRef((props, ref) => {
+interface IScrollProps {
+    direction?: "vertical" | "horizental",
+    click?: boolean;
+    refresh?: boolean;
+    pullUpLoading?: boolean;
+    pullDownLoading?: boolean;
+    bounceTop?: boolean;
+    bounceBottom?: boolean;
+    mouseWheel?: boolean;
+    onScroll?: () => {};
+    pullUp?: () => {};
+    pullDown?: () => {};
+    children: React.ReactNode;
+    className: string;
+}
 
+type posData = {
+    x: number;
+    y: number;
+}
+// 函数组件不能直接被上层组件调用ref, 需要通过forwardRef包裹
+const Scroll = forwardRef((props: IScrollProps, ref) => {
+    const [bScroll, setBScroll] = useState<BScroll | null>(null);
     const {
-        direction, 
-        click, 
-        refresh, 
-        onScroll, 
-        pullUp, 
-        pullDown, 
-        pullUpLoading, 
-        pullDownLoading, 
-        bounceTop, 
-        bounceBottom
+        direction = 'vertical', 
+        click = true, 
+        refresh = true, 
+        pullUpLoading = false, 
+        pullDownLoading = false, 
+        bounceTop = true, 
+        bounceBottom = true
     } = props;
-    // 初始化better-scroll实例对象
-    const [bScroll, setBScroll] = useState();
+
+    const { pullUp = noop, pullDown = noop, onScroll } = props;
 
     // 通过useRef创建一个ref scrollContaninerRef.current获取相对应的实例
-    const scrollContaninerRef = useRef ();
+    const scrollContaninerRef = useRef<HTMLDivElement | null> (null);
 
 
     // 传递给useEffect空数组，目的在于告诉effect，仅在组件挂载和卸载时执行。
@@ -39,7 +57,7 @@ const Scroll = forwardRef((props, ref) => {
 
     // 仅在组件挂载和卸载时创建better-scroll实例对象
     useEffect(() => {
-        const scroll = new BScroll(scrollContaninerRef.current, {
+        const scroll = new BScroll(scrollContaninerRef.current!, {
             scrollX: direction === 'horizental',
             scrollY: direction === 'vertical',
             probeType: 3, //不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
@@ -65,11 +83,9 @@ const Scroll = forwardRef((props, ref) => {
     // 实例绑定scroll事件
     useEffect(() => {
         if (!bScroll || !onScroll) return;
-        bScroll.on('scroll', (scroll) => {
-            onScroll(scroll)
-        })
+        bScroll.on('scroll', onScroll)
         return () => {
-            bScroll.off('scroll')
+            bScroll.off('scroll', onScroll)
         }
     }, [bScroll, onScroll])
 
@@ -91,7 +107,7 @@ const Scroll = forwardRef((props, ref) => {
     // 进行下拉判断，如果下拉幅度过大， 则调用下拉刷新函数
     useEffect(() => {
         if(!bScroll || !pullDown) return;
-        bScroll.on('touchEnd', pos => {
+        bScroll.on('touchEnd', (pos: posData) => {
             // 判断下拉动作
             if (pos.y > 50) {
                 pullDown()
@@ -131,32 +147,4 @@ const Scroll = forwardRef((props, ref) => {
     )
 })
 
-
-Scroll.propTypes = {
-    direction: PropTypes.oneOf (['vertical', 'horizental']),// 滚动的方向
-    click: true,// 是否支持点击
-    refresh: PropTypes.bool,// 是否刷新
-    onScroll: PropTypes.function,// 滑动触发的回调函数
-    pullUp: PropTypes.function,// 上拉加载逻辑
-    pullDown: PropTypes.function,// 下拉加载逻辑
-    pullUpLoading: PropTypes.bool,// 是否显示上拉 loading 动画
-    pullDownLoading: PropTypes.bool,// 是否显示下拉 loading 动画
-    bounceTop: PropTypes.bool,// 是否支持向上吸顶
-    bounceBottom: PropTypes.bool,// 是否支持向下吸底
-    mouseWheel: PropTypes.bool, //是否支持chrome滚轮效果
-} 
-
-Scroll.defaultProps = {
-    direction: 'vertical',
-    click: true,
-    refresh: true,
-    onScroll: null,
-    pullUp: null, 
-    pullDown: null,
-    pullUpLoading: false,
-    pullDownLoading: false,
-    bounceTop: false,
-    bounceBottom: false,
-    mouseWheel: true
-}
 export default Scroll;

@@ -6,9 +6,6 @@ import Singer from '../application/Singer';
 import Rank from '../application/Rank';
 import Album from '../application/Album';
 import SingerDetail from '../application/SingerDetail/index';
-// import ResizeDiv from '../application/ResizeDiv/hansonTable';
-// import forMikCom from '../application/FormikCom/basic';
-import VirtualList from '../application/VirtualList'
 let routes = [
     {
         path: '/',
