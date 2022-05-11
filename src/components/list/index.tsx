@@ -14,7 +14,6 @@ interface RecommendListProps extends RouteComponentProps {
     recommendList: IRecommendList;
 }
 const RecommendList: React.FC<RecommendListProps> = ({ history, recommendList }) => {
-    console.log("recommendList", recommendList);
     const enterDetail = (id: string) => {
         history.push (`/recommend/${id}`)
     }

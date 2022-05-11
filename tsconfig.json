@@ -7,6 +7,7 @@
     "target": "es6",
     "jsx": "react-jsx",
     "allowJs": true,
+    "rootDir": "src",
     "lib": [
       "dom",
       "dom.iterable",

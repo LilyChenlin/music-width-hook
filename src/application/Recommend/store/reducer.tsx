@@ -1,13 +1,26 @@
 import * as actionTypes from './constants';
 import { fromJS } from 'immutable';
-
+import { AnyAction } from 'redux';
 const defaultState = fromJS({
     bannerList: [],
     recommendList: [],
     enterLoading: true
 })
 
-export default (state = defaultState, action) => {
+interface IRecommendListItem {
+    id: string;
+    picUrl: string;
+    name: string;
+    playCount: number;
+}
+
+interface IBannerListItem {
+    imageUrl: string
+}
+export type IRecommendList = IRecommendListItem[];
+export type IBannerList = IBannerListItem[];
+// eslint-disable-next-line import/no-anonymous-default-export
+export default (state = defaultState, action: AnyAction) => {
     switch(action.type) {
         case actionTypes.CHANGE_BANNER: 
             return state.set('bannerList', action.data)
