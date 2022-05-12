@@ -1,6 +1,6 @@
 import { object } from "prop-types";
 
-export const getCount = (count) => {
+export const getCount = (count: number) => {
     if (count < 0) return;
     if (count < 10000) {
         return count;
@@ -11,9 +11,11 @@ export const getCount = (count) => {
     }
 }
 
-
+type IRracksList = {
+    tracks: string[]
+}
 // 处理数据，找出第一个没有歌名的排行榜的索引
-export const filterIndex = rankList => {
+export const filterIndex = (rankList: IRracksList[]) => {
     for (let i = 0; i < rankList.length; i++) {
         if(rankList[i].tracks.length && !rankList[i + 1].tracks.length) {
             return i + 1;
@@ -21,8 +23,11 @@ export const filterIndex = rankList => {
     }
 }
 
+type IItem = {
+    name: string
+}
 // 处理歌手列表拼接歌手名字
-export const getName = list => {
+export const getName = (list: IItem[]) => {
     let str = ''; // 最后拼接完的结果
     list.map((item, index) => {
         str += index === 0 ? item.name : '/' + item.name;
@@ -31,4 +36,4 @@ export const getName = list => {
 }
 
 // 判断控对象
-export const isEmptyObject = obj => !obj || Object.keys(obj).length === 0;
+export const isEmptyObject = (obj: object) => !obj || Object.keys(obj).length === 0;
