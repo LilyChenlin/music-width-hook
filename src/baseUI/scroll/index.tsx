@@ -30,6 +30,25 @@ type posData = {
     x: number;
     y: number;
 }
+
+const PullUpLoading = styled.div`
+    position: absolute;
+    left:0; right:0;
+    bottom: 5px;
+    width: 60px;
+    height: 60px;
+    margin: auto;
+    z-index: 100;
+`
+
+export const PullDownLoading = styled.div`
+    position: absolute;
+    left:0; right:0;
+    top: 0px;
+    height: 30px;
+    margin: auto;
+    z-index: 100;
+`
 // 函数组件不能直接被上层组件调用ref, 需要通过forwardRef包裹
 const Scroll = forwardRef((props: IScrollProps, ref) => {
     const [bScroll, setBScroll] = useState<BScroll | null>(null);
@@ -140,8 +159,8 @@ const Scroll = forwardRef((props: IScrollProps, ref) => {
             {props.children}
 
             {/* 滑倒底部加载动画 */}
-            <pullUpLoading style={PullUpdisplayStyle}><Loading></Loading></pullUpLoading>
-            <pullDownLoading style={PullDowndisplayStyle}><LoadingV2></LoadingV2></pullDownLoading>
+            <PullUpLoading style={PullUpdisplayStyle}><Loading></Loading></PullUpLoading>
+            <PullDownLoading style={PullDowndisplayStyle}><LoadingV2></LoadingV2></PullDownLoading>
         </ScrollContainer>
     )
 })

@@ -36,12 +36,13 @@ const defaultState: IRecommendState = {
 export const recommendReducer = produce((state, action: AnyAction) => {
     switch (action.type) {
         case actionTypes.CHANGE_BANNER:
-            return state.set('bannerList', action.data)
+            state.bannerList = action.data;
+            break;
         case actionTypes.CHANGE_RECOMMEND_LIST:
-            return state.set('recommendList', action.data)
+            state.recommendList = action.data;
+            break;
         case actionTypes.CHANGE_ENTER_LOADING:
-            return state.set('enterLoading', action.data)
-        default:
-            return state;
+            state.enterLoading = action.data;
+            break;
     }
 }, defaultState);

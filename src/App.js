@@ -2,7 +2,7 @@ import React from 'react';
 import {GlobalStyle} from './style';
 import { IconStyle } from './assets/iconFont/iconfont';
 import { renderRoutes } from 'react-router-config'; // renderRoutes 读取路由配置转化为Route标签
-import routes from './routes/index.js';
+import routes from './routes/index.tsx';
 import { HashRouter } from 'react-router-dom';
 import store from './store/index'
 import { Provider } from 'react-redux';

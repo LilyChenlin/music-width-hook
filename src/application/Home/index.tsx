@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderRoutes, RouteConfig } from "react-router-config";
+import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 import { NavLink } from 'react-router-dom';// 利用 NavLink 组件进行路由跳转
 import Player from '../Player';
 import { 
@@ -8,10 +8,8 @@ import {
     TabItem
 } from './style';
 
-type IHomeProps = {
-    route: RouteConfig
-}
-const Home: React.FC<IHomeProps> = ({ route }) => {
+const Home = (props: RouteConfigComponentProps) => {
+    const { route } = props;
     return (
         <div>
             <Top>
@@ -25,7 +23,7 @@ const Home: React.FC<IHomeProps> = ({ route }) => {
                 <NavLink to="/rank" activeClassName="selected"><TabItem><span>排行榜</span></TabItem></NavLink>
             </Tab>
             {/* 使用renderRoutes渲染处于第二层的功能组件 */}
-            { renderRoutes (route.routes) }
+            { renderRoutes (route?.routes) }
             <Player></Player>
         </div>
 
